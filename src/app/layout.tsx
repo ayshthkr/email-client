@@ -1,5 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import NextTopLoader from "nextjs-toploader";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -17,8 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en" className={cn(GeistSans.className, "dark")}>
       <body className="bg-background text-foreground">
+        <NextTopLoader color={"white"} />
         <main className="min-h-screen flex flex-col items-center">
           {children}
         </main>
