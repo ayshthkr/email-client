@@ -42,7 +42,7 @@ Start the server
 
 ## Screenshots
 
-![App Tutorial Video](https://raw.githubusercontent.com/ayshthkr/email-client/main/public/run.mp4)
+![App Tutorial Video](https://raw.githubusercontent.com/ayshthkr/email-client/main/public/run.gif)
 
 
 ## Database Setup
