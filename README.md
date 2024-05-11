@@ -50,44 +50,13 @@ Start the server
 You can use any postgres database using the script provided below
 
 ```sql
-  create table
-  emails (
-    id bigint primary key generated always as identity,
-    subject text,
-    body text,
-    to_email text references public.profiles (email),
-    from_email text references public.profiles (email),
-    time timestamp with time zone default (now() at time zone 'Asia/Kolkata')
-  );
-
--- SELECT Policy
-create policy "Enable read acsess if user email is in to or from field"
-on "public"."emails"
-as PERMISSIVE
-for SELECT
-to public
-using (
-  (( SELECT auth.email() AS email) = from_email) OR (( SELECT auth.email() AS email) = to_email)
-);
-
--- INSERT policy
-create policy "Enable insert for users based on email"
-on "public"."emails"
-as PERMISSIVE
-for INSERT
-to public
-with check (
-  (( SELECT auth.email() AS email) = to_email) OR (( SELECT auth.email() AS email) = from_email)
-);
-
-
 -- Create a table for public profiles
 create table
   profiles (
     id uuid references auth.users on delete cascade not null primary key,
     updated_at timestamp with time zone,
     username text unique,
-    email text constraint username_length check (char_length(username) >= 3)
+    email text unique constraint username_length check (char_length(username) >= 3)
   );
 
 -- Set up Row Level Security (RLS)
@@ -131,6 +100,39 @@ create trigger on_auth_user_created
 after insert on auth.users for each row
 execute procedure public.handle_new_user ();
 
+
+-- Emails table creation
+
+create table emails (
+  id bigint primary key generated always as identity,
+  subject text,
+  body text,
+  to_email text references public.profiles (email),
+  from_email text references public.profiles (email),
+  time timestamp with time zone default (now() at time zone 'Asia/Kolkata')
+);
+
+alter table emails enable row level security;
+
+-- SELECT Policy
+create policy "Enable read access if user email is in to or from field"
+on "public"."emails"
+as PERMISSIVE
+for SELECT
+to public
+using (
+  (( SELECT auth.email() AS email) = from_email) OR (( SELECT auth.email() AS email) = to_email)
+);
+
+-- INSERT policy
+create policy "Enable insert for users based on email"
+on "public"."emails"
+as PERMISSIVE
+for INSERT
+to public
+with check (
+  (( SELECT auth.email() AS email) = to_email) OR (( SELECT auth.email() AS email) = from_email)
+);
 ```
     
 ## Tech Stack
