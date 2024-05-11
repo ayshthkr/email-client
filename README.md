@@ -54,8 +54,7 @@ Start the server
 
 To deploy this project
 
-[![Deploy with Vercel](https://vercel.com/button)]([![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fayshthkr%2Femail-client&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY&project-name=email-client-nextjs&redirect-url=https%3A%2F%2Fgithub.com%2Fayshthkr%2Femail-client))
-
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fayshthkr%2Femail-client&env=NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY&project-name=email-client-nextjs&redirect-url=https%3A%2F%2Fgithub.com%2Fayshthkr%2Femail-client)
 
 ## Authors
 
